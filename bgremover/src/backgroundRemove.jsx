@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import "./index.css"
+import Loading from './Loading';
 
 const BackgroundRemover = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [processedImageUrl, setProcessedImageUrl] = useState('');
+    const [loading , setLoading] = useState(false)
 
     const removeBackground = async () => {
         const apiKey = "B5zdJ4BaTuuQD9AToG9Y1g8y";
@@ -12,7 +14,7 @@ const BackgroundRemover = () => {
         const formData = new FormData()
         formData.append("image_file", imageUrl, imageUrl.name)
         formData.append("size", "auto")
-
+        setLoading(true)
         fetch(url, {
             method: "POST",
             headers: {
@@ -23,9 +25,11 @@ const BackgroundRemover = () => {
             const reder = new FileReader();
             reder.onloadend = () => setProcessedImageUrl(reder.result)
             reder.readAsDataURL(blob)
+            setLoading(false)
         }).catch((error) => {
             console.log(error)
         })
+        
     };
 
     const handleDownload = () => {
@@ -46,7 +50,7 @@ const BackgroundRemover = () => {
     return (
         <div className='w-full h-screen bg-slate-200 flex flex-col gap-5 p-2
             main_box'>
-                <div className='h1'>
+                <div className='h1 border-b-2 pb-3 border-red-700'>
                 <h1 className='text-center text-2xl font-semibold'>Remove Background</h1>  
                 </div>
 
@@ -58,8 +62,8 @@ const BackgroundRemover = () => {
                     <button onClick={removeBackground} className='bg-black text-white px-6 py-2 rounded-md w-56'>Remove Background</button>
                 </div>
 
-                <div className='w-2/4 bg-slate-50 h-full photo_Sec'>
-                    {processedImageUrl && (
+                <div className='w-2/4 bg-slate-50 h-full photo_Sec  overflow-scroll'>
+                    {loading ? (<Loading/>) : (processedImageUrl && (
                         <div className='w-full'>
                             <div className='w-full p-2 flex justify-center items-center'>
                             <img src={processedImageUrl} alt="Processed" />
@@ -70,7 +74,7 @@ const BackgroundRemover = () => {
                             <button onClick={removeProccesdImage} className='px-5 py-2 rounded-md bg-red-500 font-semibold'>Remove</button>
                             </div>
                         </div>
-                    )}
+                    ))}
                 </div>
 
             </div>
