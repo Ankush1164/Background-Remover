@@ -1,0 +1,49 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@media screen and (max-width:420px) {
+    .main_box{
+        height: fit-content;
+        width: 100%;
+    }
+    .h1{
+        width: 100%;
+    }
+    .respnsive{
+        display: flex;
+        padding: 10px;
+        flex-direction: column;
+        width: 100%;
+    }
+    .photo_Sec{
+        width: 100%;
+    }
+    .input_field{
+        width: 100%;
+        height: 220px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .main_box{
+        height: fit-content;
+        width: 100%;
+    }
+    .h1{
+        width: 100%;
+    }
+    .respnsive{
+        display: flex;
+        padding: 5px;
+        flex-direction: column;
+        width: 100%;
+    }
+    .photo_Sec{
+        width: 100%;
+    }
+    .input_field{
+        width: 100%;
+        height: 220px;
+    }
+}
